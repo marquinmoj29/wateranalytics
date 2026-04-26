@@ -189,6 +189,21 @@ if os.path.exists(img):
     st.image(img, use_container_width=True)
 
 # ----------------------------
+# DESCARGA EXCEL FILTRADO
+# ----------------------------
+st.subheader("📥 Descargar datos")
+
+excel_bytes = df.to_excel("temp.xlsx", index=False)
+
+with open("temp.xlsx", "rb") as f:
+    st.download_button(
+        label="⬇️ Descargar Excel filtrado",
+        data=f,
+        file_name="wateranalytics_filtrado.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+# ----------------------------
 # FOOTER
 # ----------------------------
 st.caption("© 2026 WaterAnalytics Pro | Powered by Python")
