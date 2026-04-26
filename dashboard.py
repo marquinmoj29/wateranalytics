@@ -210,19 +210,29 @@ if os.path.exists(img):
     st.image(img, use_container_width=True)
 
 # ----------------------------
-# DESCARGA EXCEL FILTRADO
+# DESCARGAS PRO
 # ----------------------------
+import io
+
 st.subheader("📥 Descargar datos")
 
-excel_bytes = df.to_excel("temp.xlsx", index=False)
+buffer = io.BytesIO()
+df.to_excel(buffer, index=False, engine="openpyxl")
 
-with open("temp.xlsx", "rb") as f:
-    st.download_button(
-        label="⬇️ Descargar Excel filtrado",
-        data=f,
-        file_name="wateranalytics_filtrado.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+st.download_button(
+    "📄 Descargar Base Procesada",
+    data=buffer.getvalue(),
+    file_name="wateranalytics_base_procesada.xlsx"
+)
+
+buffer2 = io.BytesIO()
+resumen_ica.to_excel(buffer2, index=False, engine="openpyxl")
+
+st.download_button(
+    "🏆 Descargar Ranking ICA",
+    data=buffer2.getvalue(),
+    file_name="wateranalytics_ranking_ica.xlsx"
+)
 
 # ----------------------------
 # FOOTER
