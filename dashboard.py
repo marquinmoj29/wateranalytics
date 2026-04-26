@@ -56,22 +56,35 @@ st.sidebar.subheader("📂 Cargar Excel")
 
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+st.sidebar.subheader("📂 Cargar Excel")
+
 archivo = st.sidebar.file_uploader(
     "Sube archivo Excel",
     type=["xlsx", "xls"]
 )
 
 if archivo is not None:
-    ruta_guardado = os.path.join(UPLOAD_DIR, archivo.name)
+    nombre = archivo.name
+    ruta_guardado = os.path.join(UPLOAD_DIR, nombre)
 
     with open(ruta_guardado, "wb") as f:
         f.write(archivo.getbuffer())
 
-    df = cargar_excel_nivel_dios(ruta_guardado)
+# listar históricos
+archivos = sorted(os.listdir(UPLOAD_DIR), reverse=True)
 
+seleccion = st.sidebar.selectbox(
+    "📅 Historial",
+    archivos if archivos else ["Sin archivos"]
+)
+
+if archivos:
+    ruta = os.path.join(UPLOAD_DIR, seleccion)
 else:
     ruta = os.path.join(BASE_DIR, "data", "planilla.xlsx")
-    df = cargar_excel_nivel_dios(ruta)
+
+df = cargar_excel_nivel_dios(ruta)
 
 df = limpiar_dataframe(df)
 
