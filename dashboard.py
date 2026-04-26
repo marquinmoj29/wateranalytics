@@ -173,6 +173,7 @@ if com != "Todas":
     df = df[df["comunidad_final"] == com]
 
 if modulo == "Dashboard Ejecutivo":
+    pass
 
 # ----------------------------
 # HEADER
@@ -325,42 +326,44 @@ if st.button("📑 Generar Reporte PDF"):
             )
 
 
-elif modulo == "Limpieza de datos":
-    st.title("🧼 Limpieza de datos")
-    st.dataframe(df.head(100))
+if modulo != "Dashboard Ejecutivo":
 
-elif modulo == "Descriptiva":
-    st.title("📈 Estadística Descriptiva")
-    st.dataframe(df.describe(include="all"))
+    if modulo == "Limpieza de datos":
+        st.title("🧼 Limpieza de datos")
+        st.dataframe(df.head(100))
 
-elif modulo == "Correlación":
-    st.title("📉 Correlación")
-    st.dataframe(df.select_dtypes(include="number").corr())
+    elif modulo == "Descriptiva":
+        st.title("📈 Estadística Descriptiva")
+        st.dataframe(df.describe(include="all"))
 
-elif modulo == "Inferencial":
-    st.title("🧪 Inferencial")
-    st.info("Módulo en construcción")
+    elif modulo == "Correlación":
+        st.title("📉 Correlación")
+        st.dataframe(df.select_dtypes(include="number").corr())
 
-elif modulo == "Outliers":
-    st.title("📦 Outliers")
-    st.info("Módulo en construcción")
+    elif modulo == "Inferencial":
+        st.title("🧪 Inferencial")
+        st.info("Módulo en construcción")
 
-elif modulo == "PCA / Clusters":
-    st.title("📐 PCA / Clusters")
-    if os.path.exists(img):
-        st.image(img, use_container_width=True)
+    elif modulo == "Outliers":
+        st.title("📦 Outliers")
+        st.info("Módulo en construcción")
 
-elif modulo == "ICA":
-    st.title("💧 ICA")
-    st.dataframe(resumen_ica)
+    elif modulo == "PCA / Clusters":
+        st.title("📐 PCA / Clusters")
+        if os.path.exists(img):
+            st.image(img, use_container_width=True)
 
-elif modulo == "Reportes":
-    st.title("📑 Reportes")
-    st.info("Excel y PDF disponibles abajo")
+    elif modulo == "ICA":
+        st.title("💧 ICA")
+        st.dataframe(resumen_ica)
 
-elif modulo == "Control de Proceso":
-    st.title("⚙️ Control de Proceso")
-    st.info("Módulo en construcción")
+    elif modulo == "Reportes":
+        st.title("📑 Reportes")
+        st.info("Excel y PDF disponibles abajo")
+
+    elif modulo == "Control de Proceso":
+        st.title("⚙️ Control de Proceso")
+        st.info("Módulo en construcción")
 
 # ----------------------------
 # FOOTER
