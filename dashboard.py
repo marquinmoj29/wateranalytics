@@ -332,7 +332,7 @@ if modulo != "Dashboard Ejecutivo":
         st.title("🧼 Limpieza de datos")
         st.dataframe(df.head(100))
 
-        elif modulo == "Descriptiva":
+    elif modulo == "Descriptiva":
         from modules.descriptiva import estadistica_descriptiva
         import io
 
