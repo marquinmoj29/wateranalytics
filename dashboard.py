@@ -377,8 +377,46 @@ if modulo != "Dashboard Ejecutivo":
         st.info("Módulo en construcción")
 
     elif modulo == "Outliers":
-        st.title("📦 Outliers")
-        st.info("Módulo en construcción")
+    from modules.outliers import detectar_outliers
+    import io
+
+    st.title("📦 Detección de Outliers")
+
+    out = detectar_outliers(df)
+
+    if len(out) == 0:
+        st.success("No se detectaron outliers.")
+    else:
+        st.metric("Registros Atípicos", len(out))
+
+        st.dataframe(out, use_container_width=True)
+
+        var_out = st.selectbox(
+            "Variable para visualizar",
+            sorted(out["variable"].unique())
+        )
+
+        temp = out[out["variable"] == var_out]
+
+        fig_out = px.box(
+            temp,
+            y="valor",
+            points="all",
+            title=f"Outliers en {var_out}"
+        )
+
+        fig_out.update_layout(template="plotly_dark")
+
+        st.plotly_chart(fig_out, use_container_width=True)
+
+        buffer_out = io.BytesIO()
+        out.to_excel(buffer_out, index=False)
+
+        st.download_button(
+            "⬇️ Descargar Outliers Excel",
+            data=buffer_out.getvalue(),
+            file_name="outliers.xlsx"
+        )
 
     elif modulo == "PCA / Clusters":
         st.title("📐 PCA / Clusters")
