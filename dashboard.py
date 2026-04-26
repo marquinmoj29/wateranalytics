@@ -352,8 +352,27 @@ if modulo != "Dashboard Ejecutivo":
         )
 
     elif modulo == "Correlación":
-        st.title("📉 Correlación")
-        st.dataframe(df.select_dtypes(include="number").corr())
+
+    st.title("📉 Correlación")
+
+    corr = df.select_dtypes(include="number").corr()
+
+    fig_corr = px.imshow(
+        corr,
+        text_auto=True,
+        aspect="auto",
+        color_continuous_scale="RdBu_r",
+        origin="lower"
+    )
+
+    fig_corr.update_layout(
+        template="plotly_dark",
+        height=800
+    )
+
+    st.plotly_chart(fig_corr, use_container_width=True)
+
+    st.dataframe(corr, use_container_width=True)
 
     elif modulo == "Inferencial":
         st.title("🧪 Inferencial")
