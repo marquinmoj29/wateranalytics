@@ -284,6 +284,26 @@ st.download_button(
 )
 
 # ----------------------------
+# PDF EJECUTIVO
+# ----------------------------
+from modules.reportes import generar_pdf
+
+if st.button("📑 Generar Reporte PDF"):
+
+    generar_pdf(resumen_ica)
+
+    pdf_path = os.path.join(BASE_DIR, "outputs", "reporte_wateranalytics.pdf")
+
+    if os.path.exists(pdf_path):
+        with open(pdf_path, "rb") as f:
+            st.download_button(
+                "⬇️ Descargar PDF Ejecutivo",
+                data=f,
+                file_name="WaterAnalytics_Reporte.pdf",
+                mime="application/pdf"
+            )
+
+# ----------------------------
 # FOOTER
 # ----------------------------
 st.caption("© 2026 WaterAnalytics Pro | Powered by Python")
