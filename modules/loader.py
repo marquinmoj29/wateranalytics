@@ -32,17 +32,17 @@ def cargar_excel_nivel_dios(ruta):
             continue
 
         # Detectar comunidad real dentro del archivo
-if "Comunidad" in df.columns:
-    df["comunidad_final"] = df["Comunidad"]
+        if "Comunidad" in df.columns:
+            df["comunidad_final"] = df["Comunidad"]
 
-elif "comunidad" in df.columns:
-    df["comunidad_final"] = df["comunidad"]
+        elif "comunidad" in df.columns:
+            df["comunidad_final"] = df["comunidad"]
 
-elif "locationName" in df.columns:
-    df["comunidad_final"] = df["locationName"]
+        elif "locationName" in df.columns:
+            df["comunidad_final"] = df["locationName"]
 
-else:
-    df["comunidad_final"] = nombre_hoja.strip()
+        else:
+            df["comunidad_final"] = nombre_hoja.strip()
 
         frames.append(df)
 
