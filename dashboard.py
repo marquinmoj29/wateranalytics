@@ -337,9 +337,7 @@ if modulo != "Dashboard Ejecutivo":
         import io
 
         st.title("📈 Estadística Descriptiva")
-
         resumen_desc = estadistica_descriptiva(df)
-
         st.dataframe(resumen_desc, use_container_width=True)
 
         buffer_desc = io.BytesIO()
@@ -353,22 +351,16 @@ if modulo != "Dashboard Ejecutivo":
 
     elif modulo == "Correlación":
         st.title("📉 Correlación")
-
         corr = df.select_dtypes(include="number").corr()
 
         fig_corr = px.imshow(
             corr,
             text_auto=True,
             aspect="auto",
-            color_continuous_scale="RdBu_r",
-            origin="lower"
+            color_continuous_scale="RdBu_r"
         )
 
-        fig_corr.update_layout(
-            template="plotly_dark",
-            height=800
-        )
-
+        fig_corr.update_layout(template="plotly_dark")
         st.plotly_chart(fig_corr, use_container_width=True)
         st.dataframe(corr, use_container_width=True)
 
@@ -376,7 +368,7 @@ if modulo != "Dashboard Ejecutivo":
         st.title("🧪 Inferencial")
         st.info("Módulo en construcción")
 
-        elif modulo == "Outliers":
+    elif modulo == "Outliers":
         from modules.outliers import detectar_outliers
         import io
 
@@ -386,29 +378,9 @@ if modulo != "Dashboard Ejecutivo":
 
         if len(out) == 0:
             st.success("No se detectaron outliers.")
-
         else:
             st.metric("Registros Atípicos", len(out))
-
             st.dataframe(out, use_container_width=True)
-
-            var_out = st.selectbox(
-                "Variable para visualizar",
-                sorted(out["variable"].unique())
-            )
-
-            temp = out[out["variable"] == var_out]
-
-            fig_out = px.box(
-                temp,
-                y="valor",
-                points="all",
-                title=f"Outliers en {var_out}"
-            )
-
-            fig_out.update_layout(template="plotly_dark")
-
-            st.plotly_chart(fig_out, use_container_width=True)
 
             buffer_out = io.BytesIO()
             out.to_excel(buffer_out, index=False)
