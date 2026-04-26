@@ -52,7 +52,7 @@ BASE_DIR = os.path.dirname(__file__)
 # ----------------------------
 # DATA
 # ----------------------------
-st.sidebar.subheader("📂 Cargar Excel")
+
 
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
