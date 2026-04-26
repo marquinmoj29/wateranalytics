@@ -52,9 +52,19 @@ BASE_DIR = os.path.dirname(__file__)
 # ----------------------------
 # DATA
 # ----------------------------
-ruta = os.path.join(BASE_DIR, "data", "planilla.xlsx")
+st.sidebar.subheader("📂 Cargar Excel")
 
-df = cargar_excel_nivel_dios(ruta)
+archivo = st.sidebar.file_uploader(
+    "Sube archivo Excel",
+    type=["xlsx", "xls"]
+)
+
+if archivo is not None:
+    df = cargar_excel_nivel_dios(archivo)
+else:
+    ruta = os.path.join(BASE_DIR, "data", "planilla.xlsx")
+    df = cargar_excel_nivel_dios(ruta)
+
 df = limpiar_dataframe(df)
 
 df, resumen_ica = calcular_ica(df)
