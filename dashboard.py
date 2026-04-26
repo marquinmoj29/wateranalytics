@@ -139,6 +139,25 @@ df = limpiar_dataframe(df)
 df, resumen_ica = calcular_ica(df)
 
 # ----------------------------
+# MENU PRINCIPAL
+# ----------------------------
+modulo = st.sidebar.radio(
+    "📚 Módulos",
+    [
+        "Dashboard Ejecutivo",
+        "Limpieza de datos",
+        "Descriptiva",
+        "Correlación",
+        "Inferencial",
+        "Outliers",
+        "PCA / Clusters",
+        "ICA",
+        "Reportes",
+        "Control de Proceso"
+    ]
+)
+
+# ----------------------------
 # SIDEBAR
 # ----------------------------
 st.sidebar.title("⚙️ Filtros")
@@ -152,6 +171,8 @@ com = st.sidebar.selectbox(
 
 if com != "Todas":
     df = df[df["comunidad_final"] == com]
+
+if modulo == "Dashboard Ejecutivo":
 
 # ----------------------------
 # HEADER
@@ -302,6 +323,44 @@ if st.button("📑 Generar Reporte PDF"):
                 file_name="WaterAnalytics_Reporte.pdf",
                 mime="application/pdf"
             )
+
+
+elif modulo == "Limpieza de datos":
+    st.title("🧼 Limpieza de datos")
+    st.dataframe(df.head(100))
+
+elif modulo == "Descriptiva":
+    st.title("📈 Estadística Descriptiva")
+    st.dataframe(df.describe(include="all"))
+
+elif modulo == "Correlación":
+    st.title("📉 Correlación")
+    st.dataframe(df.select_dtypes(include="number").corr())
+
+elif modulo == "Inferencial":
+    st.title("🧪 Inferencial")
+    st.info("Módulo en construcción")
+
+elif modulo == "Outliers":
+    st.title("📦 Outliers")
+    st.info("Módulo en construcción")
+
+elif modulo == "PCA / Clusters":
+    st.title("📐 PCA / Clusters")
+    if os.path.exists(img):
+        st.image(img, use_container_width=True)
+
+elif modulo == "ICA":
+    st.title("💧 ICA")
+    st.dataframe(resumen_ica)
+
+elif modulo == "Reportes":
+    st.title("📑 Reportes")
+    st.info("Excel y PDF disponibles abajo")
+
+elif modulo == "Control de Proceso":
+    st.title("⚙️ Control de Proceso")
+    st.info("Módulo en construcción")
 
 # ----------------------------
 # FOOTER
