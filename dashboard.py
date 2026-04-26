@@ -376,47 +376,48 @@ if modulo != "Dashboard Ejecutivo":
         st.title("🧪 Inferencial")
         st.info("Módulo en construcción")
 
-    elif modulo == "Outliers":
-    from modules.outliers import detectar_outliers
-    import io
+        elif modulo == "Outliers":
+        from modules.outliers import detectar_outliers
+        import io
 
-    st.title("📦 Detección de Outliers")
+        st.title("📦 Detección de Outliers")
 
-    out = detectar_outliers(df)
+        out = detectar_outliers(df)
 
-    if len(out) == 0:
-        st.success("No se detectaron outliers.")
-    else:
-        st.metric("Registros Atípicos", len(out))
+        if len(out) == 0:
+            st.success("No se detectaron outliers.")
 
-        st.dataframe(out, use_container_width=True)
+        else:
+            st.metric("Registros Atípicos", len(out))
 
-        var_out = st.selectbox(
-            "Variable para visualizar",
-            sorted(out["variable"].unique())
-        )
+            st.dataframe(out, use_container_width=True)
 
-        temp = out[out["variable"] == var_out]
+            var_out = st.selectbox(
+                "Variable para visualizar",
+                sorted(out["variable"].unique())
+            )
 
-        fig_out = px.box(
-            temp,
-            y="valor",
-            points="all",
-            title=f"Outliers en {var_out}"
-        )
+            temp = out[out["variable"] == var_out]
 
-        fig_out.update_layout(template="plotly_dark")
+            fig_out = px.box(
+                temp,
+                y="valor",
+                points="all",
+                title=f"Outliers en {var_out}"
+            )
 
-        st.plotly_chart(fig_out, use_container_width=True)
+            fig_out.update_layout(template="plotly_dark")
 
-        buffer_out = io.BytesIO()
-        out.to_excel(buffer_out, index=False)
+            st.plotly_chart(fig_out, use_container_width=True)
 
-        st.download_button(
-            "⬇️ Descargar Outliers Excel",
-            data=buffer_out.getvalue(),
-            file_name="outliers.xlsx"
-        )
+            buffer_out = io.BytesIO()
+            out.to_excel(buffer_out, index=False)
+
+            st.download_button(
+                "⬇️ Descargar Outliers Excel",
+                data=buffer_out.getvalue(),
+                file_name="outliers.xlsx"
+            )
 
     elif modulo == "PCA / Clusters":
         st.title("📐 PCA / Clusters")
