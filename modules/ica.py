@@ -15,18 +15,16 @@ def score_inverso(valor, ideal, maximo, peso=1):
     return score * peso
 
 
-def score_rango(valor, minimo, maximo, peso=1):
-    if pd.isna(valor):
-        return np.nan
+def score_rango(valor, minimo, ideal, maximo):
+    try:
+        valor = float(valor)
+    except:
+        return None
 
     if minimo <= valor <= maximo:
-        return 100 * peso
-
-    dist = min(abs(valor - minimo), abs(valor - maximo))
-    penal = min(dist * 20, 100)
-
-    return (100 - penal) * peso
-
+        return 100
+    else:
+        return 0
 
 def calcular_ica(df, salida="outputs/ica.xlsx"):
 
