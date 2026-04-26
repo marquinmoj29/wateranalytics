@@ -54,13 +54,21 @@ BASE_DIR = os.path.dirname(__file__)
 # ----------------------------
 st.sidebar.subheader("📂 Cargar Excel")
 
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 archivo = st.sidebar.file_uploader(
     "Sube archivo Excel",
     type=["xlsx", "xls"]
 )
 
 if archivo is not None:
-    df = cargar_excel_nivel_dios(archivo)
+    ruta_guardado = os.path.join(UPLOAD_DIR, archivo.name)
+
+    with open(ruta_guardado, "wb") as f:
+        f.write(archivo.getbuffer())
+
+    df = cargar_excel_nivel_dios(ruta_guardado)
+
 else:
     ruta = os.path.join(BASE_DIR, "data", "planilla.xlsx")
     df = cargar_excel_nivel_dios(ruta)

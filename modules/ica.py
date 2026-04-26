@@ -19,12 +19,21 @@ def score_rango(valor, minimo, ideal, maximo):
     try:
         valor = float(valor)
     except:
-        return None
+        return np.nan
+
+    if pd.isna(valor):
+        return np.nan
 
     if minimo <= valor <= maximo:
         return 100
-    else:
+
+    if valor < minimo:
+        return 50
+
+    if valor > maximo:
         return 0
+
+    return np.nan
 
 def calcular_ica(df, salida="outputs/ica.xlsx"):
 
