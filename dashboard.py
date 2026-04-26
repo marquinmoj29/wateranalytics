@@ -21,26 +21,74 @@ st.set_page_config(
 # ----------------------------
 st.markdown("""
 <style>
+
+/* Fondo general */
 .stApp{
-    background: linear-gradient(135deg,#07111f,#0d1f38);
+    background: linear-gradient(135deg,#03101f,#071a33,#0a2747);
     color:white;
 }
 
+/* Sidebar */
 [data-testid="stSidebar"]{
-    background:#0b1728;
+    background: linear-gradient(180deg,#04111f,#08192d);
+    border-right:1px solid rgba(255,255,255,0.08);
 }
 
-h1,h2,h3,label,p,span{
+/* Textos */
+h1,h2,h3,h4,p,label,span{
     color:white !important;
 }
 
+/* Container */
 .block-container{
-    padding-top:1.5rem;
+    padding-top:1.2rem;
+    max-width: 1400px;
 }
 
-div[data-baseweb="select"] *{
+/* Selectbox */
+div[data-baseweb="select"] > div{
+    background:white !important;
     color:black !important;
+    border-radius:12px !important;
 }
+
+/* Inputs */
+input{
+    border-radius:12px !important;
+}
+
+/* KPI cards visual */
+[data-testid="metric-container"]{
+    background: rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:18px;
+    border-radius:16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+/* Botones */
+.stDownloadButton button{
+    width:100%;
+    border-radius:12px;
+    border:none;
+    padding:0.65rem 1rem;
+    font-weight:700;
+    background: linear-gradient(90deg,#0ea5e9,#2563eb);
+    color:white;
+}
+
+/* Hover */
+.stDownloadButton button:hover{
+    transform: translateY(-1px);
+    transition:0.2s;
+}
+
+/* Imagen PCA */
+img{
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.30);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -108,8 +156,9 @@ if com != "Todas":
 # ----------------------------
 # HEADER
 # ----------------------------
-st.title("💧 WaterAnalytics Pro")
-st.caption("Environmental Intelligence Platform")
+st.markdown("# 💧 WaterAnalytics Pro")
+st.markdown("### Environmental Intelligence Platform")
+st.markdown("---")
 
 # ----------------------------
 # KPIs
