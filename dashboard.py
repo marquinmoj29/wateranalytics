@@ -335,14 +335,13 @@ if modulo != "Dashboard Ejecutivo":
     elif modulo == "Descriptiva":
 
     from modules.descriptiva import estadistica_descriptiva
+    import io
 
     st.title("📈 Estadística Descriptiva")
 
     resumen_desc = estadistica_descriptiva(df)
 
     st.dataframe(resumen_desc, use_container_width=True)
-
-    import io
 
     buffer_desc = io.BytesIO()
     resumen_desc.to_excel(buffer_desc)
