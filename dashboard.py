@@ -333,8 +333,25 @@ if modulo != "Dashboard Ejecutivo":
         st.dataframe(df.head(100))
 
     elif modulo == "Descriptiva":
-        st.title("📈 Estadística Descriptiva")
-        st.dataframe(df.describe(include="all"))
+
+    from modules.descriptiva import estadistica_descriptiva
+
+    st.title("📈 Estadística Descriptiva")
+
+    resumen_desc = estadistica_descriptiva(df)
+
+    st.dataframe(resumen_desc, use_container_width=True)
+
+    import io
+
+    buffer_desc = io.BytesIO()
+    resumen_desc.to_excel(buffer_desc)
+
+    st.download_button(
+        "⬇️ Descargar Descriptiva Excel",
+        data=buffer_desc.getvalue(),
+        file_name="descriptiva.xlsx"
+    )
 
     elif modulo == "Correlación":
         st.title("📉 Correlación")
