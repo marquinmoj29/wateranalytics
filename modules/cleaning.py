@@ -16,8 +16,11 @@ def limpiar_columnas(df):
         .str.replace(" ", "_")
         .str.replace(r"[^\w_]", "", regex=True)
     )
-    return df
 
+    # eliminar columnas duplicadas conservando la primera
+    df = df.loc[:, ~df.columns.duplicated()]
+
+    return df
 
 def convertir_fechas(df):
     for col in ["observeddate", "createddate"]:
